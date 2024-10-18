@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getEmpleados } from "../features/Empleado/EmpleadoSlice";
+import { getEmpleado } from "../features/Empleado/EmpleadoSlice";
 
 const Empleado = () => {
-  const { empleados } = useSelector((state) => state.empleado);
+  const { empleado } = useSelector((state) => state.empleado);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [empleado, setEmpleado] = useState();
-
-  const buscarEmpleado = (id) => {
-    empleados.forEach((empleado) => {
-      if (empleado.id === id) {
-        setEmpleado(empleado);
-      }
-    });
-  };
 
   useEffect(() => {
-    if (empleados.length === 0) {
-      dispatch(getEmpleados());
-    } else {
-      buscarEmpleado(id);
-    }
+    dispatch(getEmpleado(id));
   }, []);
 
   return (
