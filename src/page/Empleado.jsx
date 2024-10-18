@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getEmpleado } from "../features/Empleado/EmpleadoSlice";
 
 const Empleado = () => {
-  const { empleado } = useSelector((state) => state.empleado);
+  const { empleado, loading } = useSelector((state) => state.empleado);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -14,9 +14,9 @@ const Empleado = () => {
 
   return (
     <div>
-      {!empleado ? (
-        <h1>Cargando...</h1>
-      ) : (
+      {loading ? (
+        <p>Cargando...</p>
+      ) : empleado ? (
         <>
           <h1>{empleado.nombreCompleto}</h1>
           <h2>Edad: {empleado.edad}</h2>
@@ -24,6 +24,10 @@ const Empleado = () => {
           <h4>Antigüedad: {empleado.antiguedad}</h4>
           <h5>Teléfono: {empleado.telefono}</h5>
         </>
+      ) : (
+        <div className="container">
+          <p>No hay datos</p>
+        </div>
       )}
     </div>
   );

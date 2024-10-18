@@ -14,6 +14,10 @@ function TableComponent() {
 
   return loading ? (
     <p>Cargando...</p>
+  ) : empleados.length === 0 ? (
+    <div className="container">
+      <p>No hay datos</p>
+    </div>
   ) : (
     <div className="container table-responsive">
       <Table striped bordered hover>
