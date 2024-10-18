@@ -3,7 +3,7 @@ import axiosInstance from "../../config/axiosInstance";
 
 export const getEmpleados = createAsyncThunk(
   "GET_EMPLEADOS",
-  async (data, thunkApi) => {
+  async (_, thunkApi) => {
     try {
       const empleados = await axiosInstance.get("/api/empleados/");
       return empleados.data;
@@ -16,7 +16,7 @@ export const getEmpleados = createAsyncThunk(
   }
 );
 
-export const empleadosSlice = createSlice({
+export const empleadoSlice = createSlice({
   name: "empleado",
   initialState: {
     error: null,
@@ -32,11 +32,11 @@ export const empleadosSlice = createSlice({
       state.loading = false;
       state.empleados = action.payload;
     });
-    builder.addCase(getEmpleados, (state, action) => {
+    builder.addCase(getEmpleados.rejected, (state, action) => {
       state.loading = false;
       state.error = true;
     });
   },
 });
 
-export default empleadosSlice.reducer;
+export default empleadoSlice.reducer;
